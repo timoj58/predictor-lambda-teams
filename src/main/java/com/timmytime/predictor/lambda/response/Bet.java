@@ -1,10 +1,16 @@
 package com.timmytime.predictor.lambda.response;
 
 import com.timmytime.predictor.lambda.enumerator.BetProvider;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class Bet implements Serializable {
 
     private Double price;
@@ -16,38 +22,6 @@ public class Bet implements Serializable {
         this.betId = betId;
         this.betProvider = betProvider;
         this.price = price;
-        this.details = details;
-    }
-
-    public UUID getBetId() {
-        return betId;
-    }
-
-    public void setBetId(UUID betId) {
-        this.betId = betId;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public BetProvider getBetProvider() {
-        return betProvider;
-    }
-
-    public void setBetProvider(BetProvider betProvider) {
-        this.betProvider = betProvider;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
         this.details = details;
     }
 

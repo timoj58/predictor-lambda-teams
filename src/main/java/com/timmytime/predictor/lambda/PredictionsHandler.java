@@ -29,19 +29,22 @@ public class PredictionsHandler implements RequestHandler<Map<String, String>, L
 
         context.getLogger().log("total records is "+repo.size());
 
-        return repo
+
+         return repo
                 .stream()
                 .map(m -> {
                     try {
+
                         return new ObjectMapper().readValue(m, EventOutcomeResponse.class);
                     } catch (JsonProcessingException e) {
 
-           //             context.getLogger().log(e.getMessage());
+                        context.getLogger().log(e.getMessage());
                         return null;
                     }
                 })
                 .filter(f -> (f.getAway().getId().equals(teamId) || f.getHome().getId().equals(teamId)))
                 .sorted(Comparator.comparing(EventOutcomeResponse::getEventDate))
                 .collect(Collectors.toList());
-    }
+
+       }
 }
