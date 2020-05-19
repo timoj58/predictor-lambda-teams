@@ -40,7 +40,7 @@ public class EventsHandler implements RequestHandler<Map<String, String>, List<U
                 .collect(Collectors.toList());
 
         //need to apply filters...
-        if (country != null && competition != null) {
+        if (!country.trim().isEmpty() && !competition.trim().isEmpty()) {
             return data.stream().filter(f -> f.getCompetition().equals(competition)).collect(Collectors.toList());
         }
 
@@ -50,8 +50,10 @@ public class EventsHandler implements RequestHandler<Map<String, String>, List<U
                 .forEach(f ->
                         f.getUpcomingEventResponses().stream()
                                 .forEach(event -> {
-                                    if (event.getEventDate().equals(dateFormat.format(new Date()))) {
+                                    if (dateFormat.format(event.getEventDate()).equals(dateFormat.format(new Date()))) {
                                         //this event is today....
+                                        context.getLogger().log("we have a game today");
+
                                         if (today.containsKey(f.getCompetition())) {
                                             today.get(f.getCompetition()).add(event);
                                         } else {
