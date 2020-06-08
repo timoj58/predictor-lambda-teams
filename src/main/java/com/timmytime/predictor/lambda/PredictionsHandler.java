@@ -24,10 +24,7 @@ public class PredictionsHandler implements RequestHandler<Map<String, String>, L
 
         UUID teamId = UUID.fromString(stringStringMap.get("team-id"));
 
-
-        RSet<String> repo = redissonClient.getSet("EventOutcomeResponse", new org.redisson.client.codec.StringCodec());
-
-        context.getLogger().log("total records is "+repo.size());
+        RSet<String> repo = redissonClient.getSet("EventOutcomeResponse_"+teamId.toString(), new org.redisson.client.codec.StringCodec());
 
 
          return repo
@@ -42,7 +39,6 @@ public class PredictionsHandler implements RequestHandler<Map<String, String>, L
                         return null;
                     }
                 })
-                .filter(f -> (f.getAway().getId().equals(teamId) || f.getHome().getId().equals(teamId)))
                 .sorted(Comparator.comparing(EventOutcomeResponse::getEventDate))
                 .collect(Collectors.toList());
 

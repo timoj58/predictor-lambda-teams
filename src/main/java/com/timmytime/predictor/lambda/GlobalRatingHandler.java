@@ -27,7 +27,7 @@ public class GlobalRatingHandler implements RequestHandler<Map<String, String>, 
 
         if (market.equals("results")) {
 
-            RSet<String> repo = redissonClient.getSet("TeamPerformanceResultsResponse", new org.redisson.client.codec.StringCodec());
+            RSet<String> repo = redissonClient.getSet("TeamPerformanceResultsResponse_"+teamId.toString(), new org.redisson.client.codec.StringCodec());
 
             return repo
                     .stream()
@@ -38,12 +38,11 @@ public class GlobalRatingHandler implements RequestHandler<Map<String, String>, 
                             return null;
                         }
                     })
-                    .filter(f -> f.getTeamId().equals(teamId))
                     .map(TeamPerformanceResponse::new)
                     .findFirst().get();
 
         } else {
-            RSet<String> repo = redissonClient.getSet("TeamPerformanceGoalsResponse", new org.redisson.client.codec.StringCodec());
+            RSet<String> repo = redissonClient.getSet("TeamPerformanceGoalsResponse_"+teamId.toString(), new org.redisson.client.codec.StringCodec());
 
             return repo
                     .stream()
@@ -54,7 +53,6 @@ public class GlobalRatingHandler implements RequestHandler<Map<String, String>, 
                             return null;
                         }
                     })
-                    .filter(f -> f.getTeamId().equals(teamId))
                     .map(TeamPerformanceResponse::new)
                     .findFirst().get();
         }
