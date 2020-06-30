@@ -30,6 +30,9 @@ public class PlayerResponse implements Serializable {
     private Double marksman;
     private Double wizard;
 
+    private Double fantasyEventScore; //saves time.  also should use this for the mobile
+    private String fantasyEventKey; //saves time.  also should use this for the mobile
+
 
     private List<FantasyResponse> fantasyResponse = new ArrayList<>();
 
